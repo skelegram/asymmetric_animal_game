@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://tc6cpm4y5acg"]
 
-[ext_resource type="Script" uid="uid://bkbldynu1s7dw" path="res://machines/train_car.gd" id="1_5fvk1"]
+[ext_resource type="Script" uid="uid://bkbldynu1s7dw" path="res://objects/machines/train_car.gd" id="1_5fvk1"]
 [ext_resource type="Texture2D" uid="uid://bct5djh882m1w" path="res://icon.svg" id="1_xer64"]
 
 [node name="TrainCar" type="CharacterBody2D"]

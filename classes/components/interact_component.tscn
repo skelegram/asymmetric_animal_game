@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://h2657jldsysf"]
+
+[ext_resource type="Script" uid="uid://b4ojnrwb4y7xa" path="res://interact_component.gd" id="1_lh4tl"]
+
+[node name="InteractComponent" type="Area2D"]
+script = ExtResource("1_lh4tl")

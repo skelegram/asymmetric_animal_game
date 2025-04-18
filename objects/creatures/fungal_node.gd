@@ -1,7 +1,7 @@
 extends Node2D
 class_name FungalNode
 
-var scene = preload("res://creatures/fungal_node.gd")
+var scene = preload("res://objects/creatures/fungal_node.gd")
 
 # a simple example of primative communication between spore colonies
 ## use "emit_signal("fungal_ping", self)" to send it

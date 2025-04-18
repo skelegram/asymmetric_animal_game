@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://deh00b2r46wdo"]
+[gd_scene load_steps=8 format=4 uid="uid://deh00b2r46wdo"]
 
 [ext_resource type="Texture2D" uid="uid://bct5djh882m1w" path="res://icon.svg" id="1_modmn"]
-[ext_resource type="PackedScene" uid="uid://cfmd3p4s6tbc" path="res://creatures/player.tscn" id="2_udj1i"]
-[ext_resource type="PackedScene" uid="uid://na0pc3owpn7d" path="res://creatures/fungal_node.tscn" id="3_ovwd3"]
+[ext_resource type="PackedScene" uid="uid://cfmd3p4s6tbc" path="res://objects/creatures/player.tscn" id="2_udj1i"]
+[ext_resource type="PackedScene" uid="uid://na0pc3owpn7d" path="res://objects/creatures/fungal_node.tscn" id="3_ovwd3"]
+[ext_resource type="PackedScene" uid="uid://co8xlwsr00jf1" path="res://objects/weapons/baton.tscn" id="4_6woe1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_udj1i"]
 texture = ExtResource("1_modmn")
@@ -37,3 +38,7 @@ position = Vector2(256, 136)
 
 [node name="Player" parent="." instance=ExtResource("2_udj1i")]
 position = Vector2(512, 136)
+
+[node name="Baton" parent="." instance=ExtResource("4_6woe1")]
+position = Vector2(520, 192)
+grabbable = false

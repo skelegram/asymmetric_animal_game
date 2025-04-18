@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AttackType" load_steps=3 format=3 uid="uid://3n5fixex1vro"]
+
+[ext_resource type="Script" uid="uid://c2lsqtroyhnv1" path="res://resources/types/damage_type.gd" id="1_bimwm"]
+[ext_resource type="Script" uid="uid://c3bw6n7fmgml0" path="res://resources/types/attack_type.gd" id="2_8jnv3"]
+
+[resource]
+script = ExtResource("2_8jnv3")
+attack_damage = 0.0
+damage_types = Array[ExtResource("1_bimwm")]([])
+attack_position = Vector2(0, 0)
+attack_vector = Vector2(0, 0)
+metadata/_custom_type_script = "uid://c3bw6n7fmgml0"

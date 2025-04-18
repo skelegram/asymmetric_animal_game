@@ -1,9 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfmd3p4s6tbc"]
+[gd_scene load_steps=8 format=3 uid="uid://cfmd3p4s6tbc"]
 
-[ext_resource type="Script" uid="uid://ciuiuj7meqpgk" path="res://creatures/player.gd" id="1_3uilo"]
+[ext_resource type="Script" uid="uid://ciuiuj7meqpgk" path="res://objects/creatures/player.gd" id="1_3uilo"]
+[ext_resource type="Script" uid="uid://b4ojnrwb4y7xa" path="res://interact_component.gd" id="2_mlvsf"]
+[ext_resource type="Script" uid="uid://i51awfma4bnn" path="res://classes/components/health_component.gd" id="3_gnl1n"]
+[ext_resource type="PackedScene" uid="uid://den1gbs8ttdem" path="res://classes/slot_object.tscn" id="5_nfudj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2qutk"]
+radius = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3uilo"]
-size = Vector2(48, 96)
+size = Vector2(64, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b83qq"]
 size = Vector2(192, 16)
@@ -11,6 +17,23 @@ size = Vector2(192, 16)
 [node name="Player" type="RigidBody2D"]
 script = ExtResource("1_3uilo")
 metadata/_custom_type_script = "uid://d2w01vvsrf0e3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2qutk")
+
+[node name="Components" type="Node" parent="."]
+
+[node name="InteractComponent" type="Area2D" parent="Components"]
+script = ExtResource("2_mlvsf")
+metadata/_custom_type_script = "uid://b4ojnrwb4y7xa"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Components/InteractComponent"]
+shape = SubResource("RectangleShape2D_3uilo")
+disabled = true
+
+[node name="HealthComponent" type="Node2D" parent="Components"]
+script = ExtResource("3_gnl1n")
+metadata/_custom_type_script = "uid://i51awfma4bnn"
 
 [node name="Sprites" type="Node" parent="."]
 
@@ -48,21 +71,20 @@ polygon = PackedVector2Array(-8, 0, 4, 0, 4, 4, -4, 4)
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso"]
 remote_path = NodePath("../../../Sprites/Torso")
 
-[node name="HandL" type="Marker2D" parent="Skeleton/Torso"]
-position = Vector2(0, -8)
+[node name="InteractTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso"]
+remote_path = NodePath("../../../Components/InteractComponent")
+
+[node name="HandL" parent="Skeleton/Torso" instance=ExtResource("5_nfudj")]
+position = Vector2(16, -12)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/HandL"]
+position = Vector2(0, -8)
 
-[node name="HandR" type="Marker2D" parent="Skeleton/Torso"]
-position = Vector2(0, 8)
+[node name="HandR" parent="Skeleton/Torso" instance=ExtResource("5_nfudj")]
+position = Vector2(16, 12)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/HandR"]
-
-[node name="PickupRange" type="Area2D" parent="Skeleton/Torso"]
-position = Vector2(16, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Skeleton/Torso/PickupRange"]
-shape = SubResource("RectangleShape2D_3uilo")
+position = Vector2(0, 16)
 
 [node name="Frills" type="StaticBody2D" parent="Skeleton/Torso"]
 position = Vector2(16, 0)
@@ -76,31 +98,37 @@ disabled = true
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/Frills"]
 remote_path = NodePath("../../../../Sprites/Frills")
 
-[node name="HolsterSet" type="Node" parent="Skeleton/Torso"]
+[node name="Inventory" type="Node" parent="Skeleton/Torso"]
 
-[node name="HolsterH1" type="Marker2D" parent="Skeleton/Torso/HolsterSet"]
-position = Vector2(-16, 0)
+[node name="SlotHeavy1" parent="Skeleton/Torso/Inventory" instance=ExtResource("5_nfudj")]
+position = Vector2(-20, 0)
+slot_weight = 3
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/HolsterSet/HolsterH1"]
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/Inventory/SlotHeavy1"]
+position = Vector2(4, 0)
 remote_path = NodePath("../../../../../Sprites/HolsterH1")
 
-[node name="HolsterM1" type="Marker2D" parent="Skeleton/Torso/HolsterSet"]
+[node name="SlotMedium1" parent="Skeleton/Torso/Inventory" instance=ExtResource("5_nfudj")]
 position = Vector2(0, -16)
+slot_weight = 2
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/HolsterSet/HolsterM1"]
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/Inventory/SlotMedium1"]
 rotation = 3.14159
 remote_path = NodePath("../../../../../Sprites/HolsterM1")
 
-[node name="HolsterL1" type="Marker2D" parent="Skeleton/Torso/HolsterSet"]
+[node name="SlotLight1" parent="Skeleton/Torso/Inventory" instance=ExtResource("5_nfudj")]
 position = Vector2(4, 16)
+constant_linear_velocity = Vector2(-8.94, 0)
+slot_weight = 1
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/HolsterSet/HolsterL1"]
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/Inventory/SlotLight1"]
 remote_path = NodePath("../../../../../Sprites/HolsterL1")
 
-[node name="HolsterL2" type="Marker2D" parent="Skeleton/Torso/HolsterSet"]
+[node name="SlotLight2" parent="Skeleton/Torso/Inventory" instance=ExtResource("5_nfudj")]
 position = Vector2(-8, 16)
+slot_weight = 1
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/HolsterSet/HolsterL2"]
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/Inventory/SlotLight2"]
 remote_path = NodePath("../../../../../Sprites/HolsterL2")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
@@ -141,5 +169,5 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 
-[connection signal="body_entered" from="Skeleton/Torso/PickupRange" to="." method="_on_pickup_range_body_entered"]
-[connection signal="body_exited" from="Skeleton/Torso/PickupRange" to="." method="_on_pickup_range_body_exited"]
+[connection signal="body_entered" from="Components/InteractComponent" to="." method="_on_interact_component_body_entered"]
+[connection signal="body_exited" from="Components/InteractComponent" to="." method="_on_interact_component_body_exited"]

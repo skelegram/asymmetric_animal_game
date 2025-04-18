@@ -1,16 +1,19 @@
 extends PhysicsObject
 class_name Creature
 
+# components
+@onready var interact_component :  = $Components/InteractComponent
+@onready var interact_collider := $Components/InteractComponent/CollisionShape2D
+
 @onready var label := $UI/Panel/Label
 @onready var camera := $Camera2D
 @onready var body := $Skeleton/Torso
 @onready var hand_l := $Skeleton/Torso/HandL
 @onready var hand_r := $Skeleton/Torso/HandR
-@onready var pickup_range := $Skeleton/Torso/PickupRange
-@onready var pickup_collider := $Skeleton/Torso/PickupRange/CollisionShape2D
 @onready var frills_sprite := $Sprites/Frills
 @onready var frills_collider := $Skeleton/Torso/Frills/CollisionShape2D
-@onready var holster_set := $Skeleton/Torso/Holsters
+
+@onready var inventory := $Skeleton/Torso/Inventory
 
 @export var move_speed := 100.0
 @export var camera_zoom := 2.0
@@ -20,9 +23,8 @@ var buildup_increment := 0.4
 var buildup_cap := 100.0
 
 var linear_force = 5
-var target = self.get_global_mouse_position()
 
-var nearby_items := {}
+var nearby_items := []
 
 
 func get_input():
@@ -33,18 +35,23 @@ func get_input():
 	# or limb damage overrides this. The overall goal will always be to follow the input dir
 	# (or "abstract goal"), but other factors may get in the way that affect result (or "realised goal").
 	
-	## e.g. 'var actual_direction = ...'
-	
-	var dist = position.distance_to(target)
+	var dist = self.global_position.distance_to(input_direction * move_speed)
 	constant_force = input_direction * linear_force * dist
-	#velocity = input_direction * move_speed=
 	
 	# pickup / drop objects
-	#if Input.is_action_pressed("pickup"):
-		## make some manager function so that items and holsters are related
-		## and can recognise / autoattach to each other
-		#closest_item.reparent()
-	#if Input.is_action_pressed("drop")
+	if Input.is_action_just_pressed("pickup"):
+		var closest_item = calc_closest_item()
+		print(1.1)
+		if closest_item: 
+			print(1.2)
+			hand_r.stow(closest_item)
+	if Input.is_action_just_pressed("drop"):
+		print(2.1)
+		if hand_r.get_child_count() > 2:
+			print(hand_r.get_children())
+			print(2.2)
+			hand_r.unstow(hand_r.get_child(2))
+		
 	
 	# raising/lowering defensive frills (resembeling a blue-tongued lizard)
 	if Input.is_action_pressed("sprint"):
@@ -53,6 +60,25 @@ func get_input():
 	if Input.is_action_just_released("sprint"):
 		frills_sprite.visible = false
 		frills_collider.disabled = true
+
+
+func spore_update(delta):
+	buildup += buildup_increment * delta
+	label.text = "Build-up % : " + str(roundi(buildup))
+	if buildup > buildup_cap:
+		print(self, ": Lethal Buildup. Terminating...")
+		queue_free()
+
+
+func _ready():
+	# tries to detect overlapping items by toggling a delayed collision shape
+	interact_component.get_child(0).disabled = false
+
+
+func _physics_process(delta):
+	spore_update(delta)
+	
+	get_input()
 
 
 func attack():
@@ -64,38 +90,25 @@ func attack():
 	pass
 
 
-func spore_update(delta):
-	buildup += buildup_increment * delta
-	label.text = "Build-up % : " + str(roundi(buildup))
-	if buildup > buildup_cap:
-		print(self, ": Lethal Buildup. Terminating...")
-		queue_free()
-
-func _ready():
-	pickup_collider.disabled = false
-
-func _physics_process(delta):
-	spore_update(delta)
-	
-	get_input()
-
-
 func calc_closest_item():
-	var closest_item : Node
+	var closest_item
 	for item in nearby_items:
-		# BUG to fix this, make sure no items spawn inside the pickup range
-		# or try googling the problem. maybe doing a append of all colliding bodies
-		# as the game loads (inside _ready)
-		if (pickup_range.global_position.distance_to(nearby_items[item])
-		< pickup_range.global_position.distance_to(nearby_items[closest_item])):
+		if closest_item == null: closest_item = item
+		
+		if (interact_component.global_position.distance_to(item.global_position)
+		< interact_component.global_position.distance_to(closest_item.global_position)):
 			closest_item = item
 			## BUG add another check to ensure item is dropped. maybe check parent's class (make sure it isn't a holster/handle class)
 	return closest_item
 
-func _on_pickup_range_body_entered(body) -> void:
-	nearby_items[body] = body.global_position
-	#calc_closest_item()
 
-func _on_pickup_range_body_exited(body) -> void:
+func _on_interact_component_body_entered(body):
+	#print(body, ', ', body is RigidBody2D and body != self, body.grabbable)
+	if body is RigidBody2D and body != self:
+		#if body.grabbable:
+			#print(true)
+			nearby_items.append(body)
+
+
+func _on_interact_component_body_exited(body):
 	nearby_items.erase(body)
-	#calc_closest_item()

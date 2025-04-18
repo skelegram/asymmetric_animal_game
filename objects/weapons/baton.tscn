@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://co8xlwsr00jf1"]
+
+[ext_resource type="Script" uid="uid://bl8da8gnnsnny" path="res://objects/weapons/baton.gd" id="1_g33om"]
+[ext_resource type="Script" uid="uid://bsyek5i7x4pje" path="res://classes/components/attack_component.gd" id="2_07n67"]
+[ext_resource type="Script" uid="uid://c2lsqtroyhnv1" path="res://resources/types/damage_type.gd" id="3_urcf0"]
+[ext_resource type="Script" uid="uid://b182ihjr7ocw4" path="res://classes/components/hitbox_component.gd" id="4_ijmgf"]
+
+[sub_resource type="Resource" id="Resource_ijmgf"]
+script = ExtResource("3_urcf0")
+metadata/_custom_type_script = "uid://c2lsqtroyhnv1"
+
+[node name="Baton" type="RigidBody2D"]
+collision_layer = 0
+script = ExtResource("1_g33om")
+metadata/_custom_type_script = "uid://d2w01vvsrf0e3"
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(4, -4, 2, -2, -6, -2, -8, 0, -4, 2, -2, 0, 2, 0, 14, 2, 24, 0, 24, -4)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(4, -4, 2, -2, -6, -2, -8, 0, -4, 2, -2, 0, 2, 0, 14, 2, 24, 0, 24, -4)
+
+[node name="AttackComponent" type="Area2D" parent="."]
+script = ExtResource("2_07n67")
+damage_types = Array[ExtResource("3_urcf0")]([SubResource("Resource_ijmgf")])
+metadata/_custom_type_script = "uid://bsyek5i7x4pje"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackComponent"]
+polygon = PackedVector2Array(4, -5, 2, -3, 2, 1, 14, 3, 25, 1, 25, -5)
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+script = ExtResource("4_ijmgf")
+metadata/_custom_type_script = "uid://b182ihjr7ocw4"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(4, -4, 2, -2, -6, -2, -8, 0, -4, 2, -2, 0, 2, 0, 14, 2, 24, 0, 24, -4)

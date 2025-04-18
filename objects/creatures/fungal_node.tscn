@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://na0pc3owpn7d"]
 
-[ext_resource type="Script" uid="uid://d1xvdm4nv0lbh" path="res://creatures/fungal_node.gd" id="1_11gvv"]
+[ext_resource type="Script" uid="uid://d1xvdm4nv0lbh" path="res://objects/creatures/fungal_node.gd" id="1_11gvv"]
 [ext_resource type="Texture2D" uid="uid://bct5djh882m1w" path="res://icon.svg" id="2_dq0sd"]
 
 [node name="FungalNode" type="Node2D"]
