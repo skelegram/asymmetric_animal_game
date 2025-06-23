@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4l1pmlxnorbu"]
+
+[ext_resource type="Script" uid="uid://uhxrabdso2p0" path="res://objects/cable_root.gd" id="1_axxj8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_axxj8"]
+size = Vector2(2, 2)
+
+[node name="CableRoot" type="Node2D"]
+script = ExtResource("1_axxj8")
+
+[node name="CableAnchor" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CableAnchor"]
+shape = SubResource("RectangleShape2D_axxj8")
+disabled = true

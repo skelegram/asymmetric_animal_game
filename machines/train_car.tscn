@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://tc6cpm4y5acg"]
+
+[ext_resource type="Script" uid="uid://bkbldynu1s7dw" path="res://machines/train_car.gd" id="1_5fvk1"]
+[ext_resource type="Texture2D" uid="uid://bct5djh882m1w" path="res://icon.svg" id="1_xer64"]
+
+[node name="TrainCar" type="CharacterBody2D"]
+script = ExtResource("1_5fvk1")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Base" type="Sprite2D" parent="Sprites"]
+self_modulate = Color(0.752941, 0.752941, 0.752941, 1)
+scale = Vector2(1, 0.4)
+texture = ExtResource("1_xer64")
+
+[node name="WallL1" type="Sprite2D" parent="Sprites"]
+position = Vector2(40, -24)
+scale = Vector2(0.4, 0.1)
+texture = ExtResource("1_xer64")
+
+[node name="WallL2" type="Sprite2D" parent="Sprites"]
+position = Vector2(-40, -24)
+scale = Vector2(0.4, 0.1)
+texture = ExtResource("1_xer64")
+
+[node name="WallR1" type="Sprite2D" parent="Sprites"]
+position = Vector2(40, 24)
+scale = Vector2(0.4, 0.1)
+texture = ExtResource("1_xer64")
+
+[node name="WallR2" type="Sprite2D" parent="Sprites"]
+position = Vector2(-40, 24)
+scale = Vector2(0.4, 0.1)
+texture = ExtResource("1_xer64")
+
+[node name="WallF" type="Sprite2D" parent="Sprites"]
+position = Vector2(64, 0)
+scale = Vector2(0.1, 0.4)
+texture = ExtResource("1_xer64")
+
+[node name="WallB" type="Sprite2D" parent="Sprites"]
+position = Vector2(-64, 0)
+scale = Vector2(0.1, 0.4)
+texture = ExtResource("1_xer64")
+
+[node name="OuterCollisionFront" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(72, -24, 72, 24, 64, 32, 16, 32, 16, 16, 56, 16, 56, -16, 16, -16, 16, -32, 64, -32)
+
+[node name="OuterCollisionBack" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-64, -32, -72, -24, -72, 24, -64, 32, -16, 32, -16, 16, -56, 16, -56, -16, -16, -16, -16, -32)
+
+[node name="Inside" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Inside"]
+polygon = PackedVector2Array(-16, -24, -16, -16, -56, -16, -56, 16, -16, 16, -16, 24, 16, 24, 16, 16, 56, 16, 56, -16, 16, -16, 16, -24)
+
+[connection signal="body_entered" from="Inside" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Inside" to="." method="_on_area_2d_body_exited"]

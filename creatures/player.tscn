@@ -1,0 +1,145 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfmd3p4s6tbc"]
+
+[ext_resource type="Script" uid="uid://ciuiuj7meqpgk" path="res://creatures/player.gd" id="1_3uilo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3uilo"]
+size = Vector2(48, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b83qq"]
+size = Vector2(192, 16)
+
+[node name="Player" type="RigidBody2D"]
+script = ExtResource("1_3uilo")
+metadata/_custom_type_script = "uid://d2w01vvsrf0e3"
+
+[node name="Sprites" type="Node" parent="."]
+
+[node name="Torso" type="Polygon2D" parent="Sprites"]
+polygon = PackedVector2Array(0, -16, -12, -12, -16, 0, -12, 12, 0, 16, 12, 12, 16, 0, 12, -12)
+
+[node name="Frills" type="Polygon2D" parent="Sprites"]
+visible = false
+position = Vector2(16, 0)
+rotation = 1.5708
+scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-80.0001, -15.9997, 79.9999, -16.0003, 112, 15.9996, 96.0001, 15.9997, 80, -0.000289917, 0, 0, -64, 0.000232697, -80, 0.000289917, -95.9999, 16.0003, -112, 16.0004)
+
+[node name="HolsterH1" type="Polygon2D" parent="Sprites"]
+position = Vector2(-16, 0)
+polygon = PackedVector2Array(-8, -12, 0, -12, 0, 12, -8, 12)
+
+[node name="HolsterM1" type="Polygon2D" parent="Sprites"]
+position = Vector2(0, -16)
+rotation = 3.14159
+polygon = PackedVector2Array(-12, 1.90735e-06, 12, -9.53674e-07, 12, 4, -12, 4)
+
+[node name="HolsterL1" type="Polygon2D" parent="Sprites"]
+position = Vector2(4, 16)
+polygon = PackedVector2Array(-8, 0, 4, 0, 4, 4, -4, 4)
+
+[node name="HolsterL2" type="Polygon2D" parent="Sprites"]
+position = Vector2(-8, 16)
+polygon = PackedVector2Array(-8, 0, 4, 0, 4, 4, -4, 4)
+
+[node name="Skeleton" type="Node2D" parent="."]
+
+[node name="Torso" type="Node2D" parent="Skeleton"]
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso"]
+remote_path = NodePath("../../../Sprites/Torso")
+
+[node name="HandL" type="Marker2D" parent="Skeleton/Torso"]
+position = Vector2(0, -8)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/HandL"]
+
+[node name="HandR" type="Marker2D" parent="Skeleton/Torso"]
+position = Vector2(0, 8)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/HandR"]
+
+[node name="PickupRange" type="Area2D" parent="Skeleton/Torso"]
+position = Vector2(16, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Skeleton/Torso/PickupRange"]
+shape = SubResource("RectangleShape2D_3uilo")
+
+[node name="Frills" type="StaticBody2D" parent="Skeleton/Torso"]
+position = Vector2(16, 0)
+rotation = 1.5708
+scale = Vector2(0.25, 0.25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Skeleton/Torso/Frills"]
+shape = SubResource("RectangleShape2D_b83qq")
+disabled = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/Frills"]
+remote_path = NodePath("../../../../Sprites/Frills")
+
+[node name="HolsterSet" type="Node" parent="Skeleton/Torso"]
+
+[node name="HolsterH1" type="Marker2D" parent="Skeleton/Torso/HolsterSet"]
+position = Vector2(-16, 0)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/HolsterSet/HolsterH1"]
+remote_path = NodePath("../../../../../Sprites/HolsterH1")
+
+[node name="HolsterM1" type="Marker2D" parent="Skeleton/Torso/HolsterSet"]
+position = Vector2(0, -16)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/HolsterSet/HolsterM1"]
+rotation = 3.14159
+remote_path = NodePath("../../../../../Sprites/HolsterM1")
+
+[node name="HolsterL1" type="Marker2D" parent="Skeleton/Torso/HolsterSet"]
+position = Vector2(4, 16)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/HolsterSet/HolsterL1"]
+remote_path = NodePath("../../../../../Sprites/HolsterL1")
+
+[node name="HolsterL2" type="Marker2D" parent="Skeleton/Torso/HolsterSet"]
+position = Vector2(-8, 16)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton/Torso/HolsterSet/HolsterL2"]
+remote_path = NodePath("../../../../../Sprites/HolsterL2")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(-8, 4)
+rect = Rect2(-288, -162, 576, 324)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -288.0
+offset_top = -162.0
+offset_right = 288.0
+offset_bottom = 162.0
+
+[node name="Panel" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.85
+anchor_top = 0.05
+anchor_right = 0.85
+anchor_bottom = 0.05
+offset_left = -64.0
+offset_right = 64.0
+offset_bottom = 16.0
+grow_horizontal = 0
+pivot_offset = Vector2(48, 8)
+
+[node name="Label" type="Label" parent="UI/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="Skeleton/Torso/PickupRange" to="." method="_on_pickup_range_body_entered"]
+[connection signal="body_exited" from="Skeleton/Torso/PickupRange" to="." method="_on_pickup_range_body_exited"]

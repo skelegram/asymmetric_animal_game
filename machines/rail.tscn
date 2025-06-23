@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqoisi802jy1u"]
+
+[ext_resource type="Texture2D" uid="uid://bct5djh882m1w" path="res://icon.svg" id="1_gx67x"]
+
+[node name="Rail" type="Line2D"]
+points = PackedVector2Array(0, 0, 320, 0, 256, 64, 64, 64)
+width = 40.0
+default_color = Color(0.501961, 0.501961, 0.501961, 1)
+texture = ExtResource("1_gx67x")
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 1
+end_cap_mode = 1
