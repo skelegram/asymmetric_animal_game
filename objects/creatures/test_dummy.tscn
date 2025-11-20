@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnf7chm2m2hxq"]
+
+[ext_resource type="Texture2D" uid="uid://bct5djh882m1w" path="res://textures/icon.svg" id="1_kneyr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2li1r"]
+radius = 16.0
+
+[node name="TestDummy" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2li1r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_kneyr")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = -41.0
+text = "data: ..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

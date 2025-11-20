@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dt6iq7x0muihx"]
+
+[node name="ColorRect" type="ColorRect"]
+offset_right = 48.0
+offset_bottom = 48.0
+color = Color(0, 0, 0, 1)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(12, 10)
+polygon = PackedVector2Array(16, 4, 6, 8, 2, 16, 4, 20, 4, 16, 8, 10)
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+position = Vector2(16, 12)
+color = Color(1, 0.752941, 0.752941, 1)
+polygon = PackedVector2Array(16, 4, 6, 8, 2, 16, 4, 20, 4, 16, 8, 10)
+
+[node name="Polygon2D3" type="Polygon2D" parent="."]
+position = Vector2(20, 14)
+color = Color(1, 0.501961, 0.501961, 1)
+polygon = PackedVector2Array(16, 4, 6, 8, 2, 16, 4, 20, 4, 16, 8, 10)

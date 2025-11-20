@@ -1,8 +1,8 @@
-extends Area2D
+extends CollisionShape2D
 class_name HitboxComponent
 
 @export var health_component : HealthComponent
 
-func damage(health_type : HealthType):
-	if health_component:
-		pass
+
+func _on_hit(attack) -> void:
+	health_component.change_health(	attack)

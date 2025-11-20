@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://co8xlwsr00jf1"]
+
+[ext_resource type="Script" uid="uid://bl8da8gnnsnny" path="res://objects/weapons/rifle.gd" id="1_i3onn"]
+[ext_resource type="Texture2D" uid="uid://bct5djh882m1w" path="res://textures/icon.svg" id="2_ohdl6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qdfea"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ohdl6")
+}],
+"loop": true,
+"name": &"flash1",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"flash2",
+"speed": 5.0
+}]
+
+[node name="Rifle" type="CharacterBody2D"]
+script = ExtResource("1_i3onn")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-16, -2, -14, -2, -10, 0, -8, 0, -6, -2, -2, -2, 2, -4, 16, -2, 16, 2, 14, 2, 6, 2, 6, 0, 4, 0, 2, 2, -7.9121, 2, -16, 2, -16, 0)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-16, -2, -14, -2, -10, 0, -8, 0, -6, -2, -2, -2, 2, -4, 16, -2, 16, 2, 14, 2, 6, 2, 6, 0, 4, 0, 2, 2, -7.9121, 2, -16, 2, -16, 0)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(16, 0)
+target_position = Vector2(512, 0)
+
+[node name="MainGrip" type="Marker2D" parent="."]
+position = Vector2(-2, 0)
+
+[node name="SideGrip" type="Marker2D" parent="."]
+position = Vector2(8, -2)
+
+[node name="MuzzleFlash" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(16, 0)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_qdfea")
+animation = &"flash1"
