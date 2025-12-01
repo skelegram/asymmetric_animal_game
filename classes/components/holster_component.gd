@@ -3,13 +3,11 @@ class_name Holster
 
 @onready var pinjoint : PinJoint2D = $PinJoint2D
 
+var stored_item : ObjectClass
 # functions as a pouch with true or a hand with false
 @export var storage_slot : bool = true
-@export var slot_weight : ItemClass.weight_type = ItemClass.weight_type.UNIVERSAL
+@export var slot_weight : ObjectData.weight_type = ObjectData.weight_type.UNIVERSAL
 @export var parent_body : Node
-
-var stored_item : ItemClass
-var stored_mass : float
 
 
 func _physics_process(delta):

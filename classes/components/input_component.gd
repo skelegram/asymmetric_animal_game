@@ -2,6 +2,7 @@ extends Node2D
 class_name InputComponent
 
 @export var movement_component : MovementComponent
+@export var zone_component : ZoneComponent
 @export var ai_component : AIComponent
 
 
@@ -21,6 +22,8 @@ func _get_input() -> void:
 		pass
 	if Input.is_action_just_released("block"):
 		pass
+	if Input.is_action_just_pressed("interact"):
+		zone_component.attack()
 
 func _get_auto_input(request := "null", optional_data := Vector2.ZERO) -> void:
 	var direction = optional_data

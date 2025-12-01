@@ -1,4 +1,4 @@
-extends Node
+extends Resource
 class_name CreatureData
 
 @export var seed : float = 0

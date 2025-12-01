@@ -1,12 +1,50 @@
-[gd_scene load_steps=12 format=3 uid="uid://2e6h4nvsvb5m"]
+[gd_scene load_steps=22 format=3 uid="uid://2e6h4nvsvb5m"]
 
 [ext_resource type="PackedScene" uid="uid://cnakmyoy5qd7g" path="res://classes/components/input_component.tscn" id="1_3yywq"]
+[ext_resource type="Script" uid="uid://c3uk3rjybwre8" path="res://objects/creatures/spider.gd" id="1_87vqg"]
 [ext_resource type="PackedScene" uid="uid://bhstce8s631es" path="res://classes/components/hitbox_component.tscn" id="1_qw0kd"]
+[ext_resource type="Script" uid="uid://cqb0qfm3cvg0p" path="res://classes/resources/creature_data.gd" id="2_ghqsw"]
+[ext_resource type="PackedScene" uid="uid://x8cur35on5mh" path="res://classes/components/health_component.tscn" id="3_fcga0"]
+[ext_resource type="Script" uid="uid://cci43bbqvv2lp" path="res://classes/resources/nutrients.gd" id="3_wp466"]
 [ext_resource type="PackedScene" uid="uid://ifnkklmnjqrm" path="res://classes/components/movement_component.tscn" id="4_fcga0"]
 [ext_resource type="PackedScene" uid="uid://cunmii1mgn711" path="res://classes/components/zone_component.tscn" id="5_87vqg"]
-[ext_resource type="PackedScene" uid="uid://c53kao08lyp4e" path="res://objects/creatures/organs/organ_manager.tscn" id="6_3yywq"]
+[ext_resource type="PackedScene" uid="uid://c53kao08lyp4e" path="res://classes/components/data_component.tscn" id="6_3yywq"]
 [ext_resource type="PackedScene" uid="uid://cqgvmki5hm1fp" path="res://objects/creatures/organs/stomach_organ.tscn" id="6_qw0kd"]
 [ext_resource type="PackedScene" uid="uid://ds5ynvmb3xdl7" path="res://classes/components/ai_component.tscn" id="6_wp466"]
+[ext_resource type="Script" uid="uid://btnwr1jysjeq" path="res://classes/resources/object_data.gd" id="7_ghqsw"]
+[ext_resource type="Script" uid="uid://i63f51dxitkj" path="res://classes/resources/material_data.gd" id="8_f441y"]
+
+[sub_resource type="Resource" id="Resource_vhqrv"]
+script = ExtResource("2_ghqsw")
+seed = 0.0
+awareness_influence = 0
+aggression_influence = 0
+metadata/_custom_type_script = "uid://cqb0qfm3cvg0p"
+
+[sub_resource type="Resource" id="Resource_ghqsw"]
+script = ExtResource("3_wp466")
+carb = 50.0
+protein = 50.0
+fat = 50.0
+water = 50.0
+vitamins = 50.0
+minerals = 50.0
+fiber = 50.0
+metadata/_custom_type_script = "uid://cci43bbqvv2lp"
+
+[sub_resource type="Resource" id="Resource_o2cb8"]
+script = ExtResource("8_f441y")
+material_name = "DefaultMaterial"
+metadata/_custom_type_script = "uid://i63f51dxitkj"
+
+[sub_resource type="Resource" id="Resource_yxdso"]
+script = ExtResource("7_ghqsw")
+material_data = SubResource("Resource_o2cb8")
+health = 10.0
+max_health = 10.0
+acid_resistance = 8.0
+weight_class = 0
+metadata/_custom_type_script = "uid://btnwr1jysjeq"
 
 [sub_resource type="Gradient" id="Gradient_i1y62"]
 
@@ -21,73 +59,102 @@ radius = 8.0
 size = Vector2(8, 16)
 
 [node name="Spider" type="CharacterBody2D"]
+script = ExtResource("1_87vqg")
+creature_data = SubResource("Resource_vhqrv")
 
-[node name="InputComponent" parent="." node_paths=PackedStringArray("movement_component", "ai_component") instance=ExtResource("1_3yywq")]
+[node name="DataComponent" parent="." instance=ExtResource("6_3yywq")]
+cotained_nutrients = SubResource("Resource_ghqsw")
+
+[node name="InputComponent" parent="." node_paths=PackedStringArray("movement_component", "zone_component", "ai_component") instance=ExtResource("1_3yywq")]
 movement_component = NodePath("../MovementComponent")
+zone_component = NodePath("../ZoneComponent")
 ai_component = NodePath("../AIComponent")
 
-[node name="MovementComponent" parent="." instance=ExtResource("4_fcga0")]
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("main_sprite") instance=ExtResource("4_fcga0")]
+main_sprite = NodePath("../Sprite2D")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_fcga0")]
+flesh_type = SubResource("Resource_yxdso")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(1, 16)
 texture = SubResource("GradientTexture1D_qw0kd")
 
-[node name="HitboxComponent" parent="." instance=ExtResource("1_qw0kd")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("1_qw0kd")]
 shape = SubResource("CircleShape2D_qw0kd")
-health_component = null
+health_component = NodePath("../HealthComponent")
 
-[node name="ZoneComponent" parent="." instance=ExtResource("5_87vqg")]
+[node name="ZoneComponent" parent="." node_paths=PackedStringArray("stomach_organ") instance=ExtResource("5_87vqg")]
 position = Vector2(12, 0)
+stomach_organ = NodePath("../StomachOrgan")
 
 [node name="HitboxComponent" parent="ZoneComponent" instance=ExtResource("1_qw0kd")]
 shape = SubResource("RectangleShape2D_i1y62")
-health_component = null
 
 [node name="AIComponent" parent="." node_paths=PackedStringArray("hitbox_component") instance=ExtResource("6_wp466")]
 hitbox_component = NodePath("../HitboxComponent")
-max_pack_size = null
-navigation_attempts = null
 
-[node name="OrganManager" parent="." instance=ExtResource("6_3yywq")]
+[node name="StomachOrgan" parent="." node_paths=PackedStringArray("carb_bar", "protein_bar", "fat_bar", "water_bar", "vitamin_bar", "mineral_bar", "fiber_bar") instance=ExtResource("6_qw0kd")]
+carb_bar = NodePath("../UI/VBoxContainer/CarbBar")
+protein_bar = NodePath("../UI/VBoxContainer/ProteinBar")
+fat_bar = NodePath("../UI/VBoxContainer/FatBar")
+water_bar = NodePath("../UI/VBoxContainer/WaterBar")
+vitamin_bar = NodePath("../UI/VBoxContainer/VitaminBar")
+mineral_bar = NodePath("../UI/VBoxContainer/MineralBar")
+fiber_bar = NodePath("../UI/VBoxContainer/FiberBar")
 
-[node name="StomachOrgan" parent="OrganManager" instance=ExtResource("6_qw0kd")]
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
 
-[node name="CarbBar" type="ProgressBar" parent="UI"]
-offset_right = 4.0
-offset_bottom = 27.0
-
-[node name="ProteinBar" type="ProgressBar" parent="UI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+layout_mode = 2
+offset_left = -152.0
 offset_top = 32.0
-offset_right = 4.0
-offset_bottom = 59.0
+offset_right = -112.0
+offset_bottom = 84.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="FatBar" type="ProgressBar" parent="UI"]
-offset_top = 64.0
-offset_right = 4.0
-offset_bottom = 91.0
+[node name="CarbBar" type="ProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
+step = 1.0
+show_percentage = false
 
-[node name="WaterBar" type="ProgressBar" parent="UI"]
-offset_top = 96.0
-offset_right = 4.0
-offset_bottom = 123.0
+[node name="ProteinBar" type="ProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
+step = 1.0
+show_percentage = false
 
-[node name="VitaminBar" type="ProgressBar" parent="UI"]
-offset_top = 128.0
-offset_right = 4.0
-offset_bottom = 155.0
+[node name="FatBar" type="ProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
+step = 1.0
+show_percentage = false
 
-[node name="MineralBar" type="ProgressBar" parent="UI"]
-offset_top = 160.0
-offset_right = 4.0
-offset_bottom = 187.0
+[node name="WaterBar" type="ProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
+step = 1.0
+show_percentage = false
 
-[node name="FiberBar" type="ProgressBar" parent="UI"]
-offset_top = 192.0
-offset_right = 4.0
-offset_bottom = 219.0
+[node name="VitaminBar" type="ProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
+step = 1.0
+show_percentage = false
+
+[node name="MineralBar" type="ProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
+step = 1.0
+show_percentage = false
+
+[node name="FiberBar" type="ProgressBar" parent="UI/VBoxContainer"]
+layout_mode = 2
+step = 1.0
+show_percentage = false

@@ -2,7 +2,7 @@ extends NavigationAgent2D
 class_name AIComponent
 
 @export var hitbox_component : HitboxComponent
-@export var brain_data := CreatureData.new()
+@export var brain_data : CreatureData
 
 @export var max_pack_size : int = 1
 var pack_members : Array[CharacterBody2D] = []

@@ -1,0 +1,59 @@
+[gd_scene load_steps=12 format=3 uid="uid://cce4c4jxw1e6y"]
+
+[ext_resource type="Script" uid="uid://6fhso65ll6h3" path="res://classes/framework/object_class.gd" id="1_dor8f"]
+[ext_resource type="PackedScene" uid="uid://x8cur35on5mh" path="res://classes/components/health_component.tscn" id="2_752qm"]
+[ext_resource type="Script" uid="uid://btnwr1jysjeq" path="res://classes/resources/object_data.gd" id="2_ds3vg"]
+[ext_resource type="Script" uid="uid://cci43bbqvv2lp" path="res://classes/resources/nutrients.gd" id="2_nyi5q"]
+[ext_resource type="Script" uid="uid://i63f51dxitkj" path="res://classes/resources/material_data.gd" id="3_4tgt6"]
+[ext_resource type="PackedScene" uid="uid://bhstce8s631es" path="res://classes/components/hitbox_component.tscn" id="3_ds3vg"]
+
+[sub_resource type="Resource" id="Resource_nyi5q"]
+script = ExtResource("2_nyi5q")
+carb = 0.0
+protein = 0.0
+fat = 0.0
+water = 0.0
+vitamins = 0.0
+minerals = 0.0
+fiber = 0.0
+metadata/_custom_type_script = "uid://cci43bbqvv2lp"
+
+[sub_resource type="Resource" id="Resource_aiftt"]
+script = ExtResource("3_4tgt6")
+material_name = "DefaultMaterial"
+nutrient_ref = SubResource("Resource_nyi5q")
+metadata/_custom_type_script = "uid://i63f51dxitkj"
+
+[sub_resource type="Resource" id="Resource_ds3vg"]
+script = ExtResource("2_ds3vg")
+material_data = SubResource("Resource_aiftt")
+health = 10.0
+max_health = 10.0
+acid_resistance = 8.0
+weight_class = 0
+metadata/_custom_type_script = "uid://btnwr1jysjeq"
+
+[sub_resource type="Resource" id="Resource_4tgt6"]
+script = ExtResource("3_4tgt6")
+material_name = "DefaultMaterial"
+metadata/_custom_type_script = "uid://i63f51dxitkj"
+
+[sub_resource type="Resource" id="Resource_n17tt"]
+script = ExtResource("2_ds3vg")
+material_data = SubResource("Resource_4tgt6")
+health = 10.0
+max_health = 10.0
+acid_resistance = 8.0
+weight_class = 0
+metadata/_custom_type_script = "uid://btnwr1jysjeq"
+
+[node name="Object" type="CharacterBody2D" node_paths=PackedStringArray("health_component")]
+script = ExtResource("1_dor8f")
+object_data = SubResource("Resource_ds3vg")
+health_component = NodePath("HealthComponent")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_752qm")]
+flesh_type = SubResource("Resource_n17tt")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_ds3vg")]
+health_component = NodePath("../HealthComponent")

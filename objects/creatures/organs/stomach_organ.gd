@@ -1,7 +1,7 @@
 extends Node2D
 class_name StomachOrgan
 
-@export var organ_manager : OrganManager
+@export var data_component : DataComponent
 
 @export_category("UI")
 @export var carb_bar : ProgressBar
@@ -18,23 +18,31 @@ class_name StomachOrgan
 @export var energy_efficiency : float = 0.25
 @export var acid_strength : float = 8.0
 
-var stomach_contents : Array = []
+var stomach_contents : Array[ObjectClass] = []
+
+
+func _ready():
+	update_bars()
 
 
 func _process(delta):
 	digest_tick()
-	update_bars()
+
+
+func swallow_object(new_object : ObjectClass):
+	stomach_contents.append(new_object.object_data)
 
 
 func digest_tick():
-	pass
+	for item in stomach_contents:
+		item.object_data
 
 
 func update_bars():
-	carb_bar.value = organ_manager.body_nutrients.carb
-	protein_bar.value = organ_manager.body_nutrients.protein
-	fat_bar.value = organ_manager.body_nutrients.fat
-	water_bar.value = organ_manager.body_nutrients.water
-	vitamin_bar.value = organ_manager.body_nutrients.vitamins
-	mineral_bar.value = organ_manager.body_nutrients.minerals
-	fiber_bar.value = organ_manager.body_nutrients.fiber
+	carb_bar.value = data_component.body_nutrients.carb
+	protein_bar.value = data_component.body_nutrients.protein
+	fat_bar.value = data_component.body_nutrients.fat
+	water_bar.value = data_component.body_nutrients.water
+	vitamin_bar.value = data_component.body_nutrients.vitamins
+	mineral_bar.value = data_component.body_nutrients.minerals
+	fiber_bar.value = data_component.body_nutrients.fiber

@@ -3,6 +3,5 @@ class_name HitboxComponent
 
 @export var health_component : HealthComponent
 
-
-func _on_hit(attack) -> void:
+func on_hit(attack) -> void:
 	health_component.change_health(	attack)

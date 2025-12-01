@@ -1,4 +1,4 @@
-extends Node
+extends Resource
 class_name Nutrients
 
 @export_range(0.0, 100.0) var carb : float = 0.0
@@ -8,7 +8,6 @@ class_name Nutrients
 @export_range(0.0, 100.0) var vitamins: float = 0.0
 @export_range(0.0, 100.0) var minerals: float = 0.0
 @export_range(0.0, 100.0) var fiber: float = 0.0
-
 
 func change_carb_level(value) -> void:
 	carb = clamp(carb + value, 0.0, 100.0)
