@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqgvmki5hm1fp"]
+
+[ext_resource type="Script" uid="uid://dpnko7m56y3kr" path="res://objects/creatures/organs/stomach_organ.gd" id="1_ty4s2"]
+
+[node name="StomachOrgan" type="Node2D"]
+script = ExtResource("1_ty4s2")

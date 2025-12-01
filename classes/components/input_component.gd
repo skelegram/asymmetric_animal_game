@@ -11,7 +11,6 @@ func _process(delta):
 
 func _get_input() -> void:
 	var direction = Input.get_vector("left", "right", "up", "down")
-	print(direction)
 	movement_component._set_direction(direction)
 	
 	if Input.is_action_just_pressed("attack"):
@@ -22,4 +21,12 @@ func _get_input() -> void:
 		pass
 	if Input.is_action_just_released("block"):
 		pass
+
+func _get_auto_input(request := "null", optional_data := Vector2.ZERO) -> void:
+	var direction = optional_data
+	movement_component._set_direction(direction)
 	
+	if request == "attack":
+		pass
+	if request == "block":
+		pass

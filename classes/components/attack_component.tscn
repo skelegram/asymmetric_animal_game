@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cunmii1mgn711"]
-
-[ext_resource type="Script" uid="uid://dlhjrkdbka6ij" path="res://classes/components/attack_component.gd" id="1_vdadj"]
-
-[node name="AttackComponent" type="Area2D"]
-script = ExtResource("1_vdadj")
-
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]

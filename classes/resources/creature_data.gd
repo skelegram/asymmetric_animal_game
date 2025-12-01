@@ -1,5 +1,5 @@
 extends Node
-class_name BrainData
+class_name CreatureData
 
 @export var seed : float = 0
 var rng := RandomNumberGenerator.new()

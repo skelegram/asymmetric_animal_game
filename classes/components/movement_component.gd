@@ -1,8 +1,7 @@
-extends CharacterBody2D
+extends Node2D
 class_name MovementComponent
 
-@export var move_speed : float = 500
-@export var rotation_speed : float = 50
+@export var move_speed : float = 200
 
 enum state {IDLE, CHARGE, BITE, GRAPPLE}
 var current_state : int
@@ -15,10 +14,9 @@ func _set_direction(new_value):
 
 func _process(delta):
 	# handle movement
-	look_at(get_global_mouse_position())
-	velocity = direction * move_speed
-	print(velocity)
-	move_and_slide()
+	get_parent().look_at(get_global_mouse_position())
+	get_parent().velocity = direction * move_speed
+	get_parent().move_and_slide()
 
 
 func switch_state(new_state: int):

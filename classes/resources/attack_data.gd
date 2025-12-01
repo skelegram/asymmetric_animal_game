@@ -1,5 +1,5 @@
 extends Resource
-class_name Attack
+class_name AttackData
 
 @export var damage : float = 1
 @export var position : Vector2 = Vector2.ZERO
