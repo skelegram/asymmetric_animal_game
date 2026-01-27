@@ -2,20 +2,25 @@ extends Area2D
 class_name ZoneComponent
 
 @export var stomach_organ : StomachOrgan
+
 @export var new_attack : AttackData
-var detected_areas : Array = []
+var detected_bodies : Array = []
 
 func attack() -> void:
-	for area : HitboxComponent in detected_areas:
-		if area.is_class("CreatureClass"):
-			area.on_hit(new_attack)
-		elif area.is_class("ObjectClass"):
-			stomach_organ.swallow_object(area.get_parent())
+	for body in detected_bodies:
+		if body is CreatureClass:
+			body.on_hit(new_attack)
+		elif body is ObjectClass:
+			stomach_organ.swallow_object(body.object_data)
+			body.queue_free()
 
-func _on_area_entered(area) -> void:
-	if area is HitboxComponent:
-		detected_areas.append(area)
 
-func _on_area_exited(area) -> void:
-	if detected_areas.has(area):
-		detected_areas.erase(area)
+func _on_body_entered(body) -> void:
+	if body == get_parent().get_parent(): return
+	if (body is ObjectClass or body is CreatureClass):
+		detected_bodies.append(body)
+
+
+func _on_body_exited(body) -> void:
+	if detected_bodies.has(body):
+		detected_bodies.erase(body)

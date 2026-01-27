@@ -1,0 +1,2 @@
+extends ObjectClass
+class_name CreatureClass

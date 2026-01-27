@@ -1,16 +1,8 @@
 extends Resource
 class_name CreatureData
 
-@export var seed : float = 0
-var rng := RandomNumberGenerator.new()
 
-var awareness : int
-@export_range(-100.0, 100.0) var awareness_influence : int
-var aggression : int
-@export_range(-100.0, 100.0) var aggression_influence : int
-
-
-func _ready():
+func _ready() -> void:
 	_generate_seed()
 	
 	# create personality based on seed
@@ -19,7 +11,7 @@ func _ready():
 
 
 func _generate_seed() -> void:
-	if seed == 0:
+	if seed_val == 0:
 		rng.randomize()
 	else:
-		rng.seed = seed
+		rng.seed = seed_val

@@ -1,5 +1,5 @@
-extends Node2D
+extends CharacterBody2D
 class_name ObjectClass
 
-@export var object_data : ObjectData
-@export var health_component : HealthComponent
+enum ObjectTypes {ITEM, CREATURE}
+@export var object_type: ObjectTypes
