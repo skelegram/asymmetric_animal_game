@@ -1,2 +1,0 @@
-extends ObjectClass
-class_name Meatball

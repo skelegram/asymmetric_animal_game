@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhstce8s631es"]
-
-[ext_resource type="Script" uid="uid://dloyoo6hqj63s" path="res://classes/components/hitbox_component.gd" id="1_kcbfo"]
-
-[node name="HitboxComponent" type="CollisionShape2D"]
-script = ExtResource("1_kcbfo")

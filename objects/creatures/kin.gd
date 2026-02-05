@@ -1,2 +1,2 @@
-extends RigidBody2D
+extends AbstractCreature
 class_name Kin

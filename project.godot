@@ -11,7 +11,6 @@ config_version=5
 [application]
 
 config/name="asymmetric animal game"
-run/main_scene="uid://b17tui1t2a8lm"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://textures/icon.svg"
 
