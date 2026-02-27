@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="HaulResource" load_steps=2 format=3 uid="uid://ymrdgl6tw28u"]
+
+[ext_resource type="Script" uid="uid://bls3iaqhlvatu" path="res://classes/resources/haul_resource.gd" id="1_8c3ly"]
+
+[resource]
+script = ExtResource("1_8c3ly")
+metadata/_custom_type_script = "uid://bls3iaqhlvatu"

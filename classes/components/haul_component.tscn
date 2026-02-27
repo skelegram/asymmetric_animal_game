@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://yyxkhjm8x2qf"]
+
+[ext_resource type="Script" uid="uid://xxfrcp4w4kwx" path="res://classes/components/haul_component.gd" id="1_2j610"]
+
+[node name="HaulComponent" type="Area2D"]
+script = ExtResource("1_2j610")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

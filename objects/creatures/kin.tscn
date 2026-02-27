@@ -1,24 +1,21 @@
-[gd_scene load_steps=18 format=3 uid="uid://2e6h4nvsvb5m"]
+[gd_scene load_steps=23 format=3 uid="uid://2e6h4nvsvb5m"]
 
 [ext_resource type="PackedScene" uid="uid://cnakmyoy5qd7g" path="res://classes/components/input_component.tscn" id="1_3yywq"]
-[ext_resource type="Script" uid="uid://caul1dfb8dsfp" path="res://objects/creatures/kin.gd" id="1_f441y"]
+[ext_resource type="Script" uid="uid://ci1cobs60iflb" path="res://classes/framework/creature_manager.gd" id="1_im7hl"]
 [ext_resource type="PackedScene" uid="uid://bhstce8s631es" path="res://classes/components/hitbox_component.tscn" id="1_qw0kd"]
+[ext_resource type="Resource" uid="uid://df2a8nirsfqm6" path="res://objects/creatures/data/kin/kin_manager.tres" id="2_jpycb"]
 [ext_resource type="PackedScene" uid="uid://x8cur35on5mh" path="res://classes/components/health_component.tscn" id="3_fcga0"]
 [ext_resource type="PackedScene" uid="uid://ifnkklmnjqrm" path="res://classes/components/movement_component.tscn" id="4_fcga0"]
-[ext_resource type="PackedScene" uid="uid://cunmii1mgn711" path="res://classes/components/zone_component.tscn" id="5_87vqg"]
-[ext_resource type="PackedScene" uid="uid://c53kao08lyp4e" path="res://classes/components/storage_component.tscn" id="6_3yywq"]
-[ext_resource type="PackedScene" uid="uid://cqgvmki5hm1fp" path="res://objects/creatures/organs/StomachOrgan.tscn" id="6_qw0kd"]
+[ext_resource type="Resource" uid="uid://x8pc61ii8xp6" path="res://objects/creatures/data/kin/kin_input.tres" id="4_kvlul"]
+[ext_resource type="Resource" uid="uid://bhvqgxsmqiekj" path="res://objects/creatures/data/kin/kin_movement.tres" id="6_2a58c"]
+[ext_resource type="PackedScene" uid="uid://cqgvmki5hm1fp" path="res://objects/creatures/organs/stomach_component.tscn" id="6_qw0kd"]
 [ext_resource type="PackedScene" uid="uid://ds5ynvmb3xdl7" path="res://classes/components/ai_component.tscn" id="6_wp466"]
-[ext_resource type="Script" uid="uid://c3bw6n7fmgml0" path="res://classes/resources/attack_data.gd" id="10_o2cb8"]
-
-[sub_resource type="Resource" id="Resource_2edcq"]
-script = ExtResource("10_o2cb8")
-damage = 1.0
-damage_type = 0
-metadata/_custom_type_script = "uid://c3bw6n7fmgml0"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i1y62"]
-size = Vector2(8, 16)
+[ext_resource type="Resource" uid="uid://lnnubrb1b2ec" path="res://objects/creatures/data/kin/kin_ai.tres" id="8_633ta"]
+[ext_resource type="PackedScene" uid="uid://btn15t8kp7b04" path="res://classes/components/body_component.tscn" id="8_im7hl"]
+[ext_resource type="Resource" uid="uid://bqqp07rhp88jr" path="res://objects/creatures/data/kin/kin_stomach.tres" id="11_2a58c"]
+[ext_resource type="PackedScene" uid="uid://yyxkhjm8x2qf" path="res://classes/components/haul_component.tscn" id="11_apciv"]
+[ext_resource type="Resource" uid="uid://ymrdgl6tw28u" path="res://objects/creatures/data/kin/kin_haul.tres" id="12_o3yop"]
+[ext_resource type="Resource" uid="uid://evxnk6ttck7s" path="res://objects/creatures/data/kin/kin_stomach_health.tres" id="13_633ta"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_im7hl"]
 load_path = "res://.godot/imported/kin_spritesheet.png-77b94d50345432165a91dab95bc7551c.ctex"
@@ -35,57 +32,73 @@ region = Rect2(0, 16, 16, 16)
 atlas = SubResource("CompressedTexture2D_im7hl")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_qw0kd"]
-radius = 8.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3yop"]
+size = Vector2(24, 16)
 
-[node name="Kin" type="RigidBody2D"]
-script = ExtResource("1_f441y")
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w6jjg"]
+radius = 4.0
+height = 16.0
 
-[node name="InputComponent" parent="." node_paths=PackedStringArray("movement_component", "zone_component", "ai_component", "stomach_organ") instance=ExtResource("1_3yywq")]
-movement_component = NodePath("../MovementComponent")
-zone_component = NodePath("../ZoneComponent")
-ai_component = NodePath("../AIComponent")
-stomach_organ = NodePath("../StomachOrgan")
+[node name="Kin" type="CharacterBody2D" node_paths=PackedStringArray("hitbox_component", "input_component", "movement_component", "ai_component", "stomach_organ")]
+script = ExtResource("1_im7hl")
+resource_file = ExtResource("2_jpycb")
+hitbox_component = NodePath("HitboxComponent")
+input_component = NodePath("InputComponent")
+movement_component = NodePath("MovementComponent")
+ai_component = NodePath("AIComponent")
+stomach_organ = NodePath("BodyComponent/StomachComponent")
 
-[node name="MovementComponent" parent="." instance=ExtResource("4_fcga0")]
+[node name="BodyComponent" parent="." instance=ExtResource("8_im7hl")]
 
-[node name="StorageComponent" parent="." instance=ExtResource("6_3yywq")]
-
-[node name="ZoneComponent" parent="." node_paths=PackedStringArray("stomach_organ") instance=ExtResource("5_87vqg")]
-stomach_organ = NodePath("../StomachOrgan")
-new_attack = SubResource("Resource_2edcq")
-
-[node name="HitboxComponent" parent="ZoneComponent" instance=ExtResource("1_qw0kd")]
-visible = false
-shape = SubResource("RectangleShape2D_i1y62")
-
-[node name="UpperBody" type="Sprite2D" parent="ZoneComponent"]
+[node name="UpperBody" type="Sprite2D" parent="BodyComponent"]
 rotation = -1.5708
+scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_im7hl")
 
-[node name="LowerBody" type="Sprite2D" parent="ZoneComponent"]
-visible = false
-position = Vector2(-12, 5.24537e-07)
+[node name="LowerBody" type="Sprite2D" parent="BodyComponent"]
+position = Vector2(-24, 1.36424e-12)
 rotation = -1.5708
+scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_2a58c")
 
-[node name="Head" type="Sprite2D" parent="ZoneComponent"]
-position = Vector2(4, -1.74846e-07)
+[node name="Head" type="Sprite2D" parent="BodyComponent"]
+position = Vector2(8, 1.84741e-13)
 rotation = -1.5708
+scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_kvlul")
 
-[node name="AIComponent" parent="." node_paths=PackedStringArray("hitbox_component") instance=ExtResource("6_wp466")]
-hitbox_component = NodePath("../HitboxComponent")
+[node name="Camera2D" type="Camera2D" parent="BodyComponent/Head"]
+position = Vector2(1.43051e-05, -4)
+rotation = 1.5708
+zoom = Vector2(4, 4)
+
+[node name="HaulComponent" parent="BodyComponent" instance=ExtResource("11_apciv")]
+position = Vector2(4, 0)
+resource_file = ExtResource("12_o3yop")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyComponent/HaulComponent"]
+shape = SubResource("RectangleShape2D_o3yop")
+
+[node name="StomachComponent" parent="BodyComponent" instance=ExtResource("6_qw0kd")]
+resource_file = ExtResource("11_2a58c")
+
+[node name="HealthComponent" parent="BodyComponent/StomachComponent" instance=ExtResource("3_fcga0")]
+resource_file = ExtResource("13_633ta")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyComponent/StomachComponent"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_w6jjg")
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("1_qw0kd")]
-visible = false
-shape = SubResource("CircleShape2D_qw0kd")
-health_component = NodePath("../StomachOrgan/HealthComponent")
+rotation = 1.5708
+polygon = PackedVector2Array(-12, 5.24537e-07, -12, -8, -8, -16, -8, 4, -4, 8, 4, 8, 8, 4, 8, -16, 12, -8, 12, -5.24537e-07, 8, 8, 5.24537e-07, 12, -8, 8)
+health_component = NodePath("../BodyComponent/StomachComponent/HealthComponent")
 
-[node name="StomachOrgan" parent="." node_paths=PackedStringArray("storage_component") instance=ExtResource("6_qw0kd")]
-storage_component = NodePath("../StorageComponent")
+[node name="InputComponent" parent="." instance=ExtResource("1_3yywq")]
+resource_file = ExtResource("4_kvlul")
 
-[node name="HealthComponent" parent="StomachOrgan" instance=ExtResource("3_fcga0")]
+[node name="MovementComponent" parent="." instance=ExtResource("4_fcga0")]
+resource_file = ExtResource("6_2a58c")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+[node name="AIComponent" parent="." instance=ExtResource("6_wp466")]
+resource_file = ExtResource("8_633ta")

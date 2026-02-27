@@ -1,22 +1,38 @@
-[gd_scene load_steps=6 format=3 uid="uid://cce4c4jxw1e6y"]
+[gd_scene load_steps=10 format=3 uid="uid://cce4c4jxw1e6y"]
 
-[ext_resource type="Script" uid="uid://dsiv63ex15mfk" path="res://objects/items/meatball.gd" id="1_m6ds0"]
+[ext_resource type="Script" uid="uid://vccpbeklxvqj" path="res://classes/framework/object_manager.gd" id="1_53alk"]
 [ext_resource type="Texture2D" uid="uid://dr1bgjlp1yh77" path="res://textures/sprites/meatball.png" id="2_4spwu"]
+[ext_resource type="Script" uid="uid://ct72ih2uvfh4j" path="res://classes/resources/object_resource.gd" id="2_5eapg"]
 [ext_resource type="PackedScene" uid="uid://x8cur35on5mh" path="res://classes/components/health_component.tscn" id="2_752qm"]
 [ext_resource type="PackedScene" uid="uid://bhstce8s631es" path="res://classes/components/hitbox_component.tscn" id="3_ds3vg"]
+[ext_resource type="Script" uid="uid://p4jpyxyfekcs" path="res://health_resource.gd" id="4_53alk"]
+[ext_resource type="PackedScene" uid="uid://ifnkklmnjqrm" path="res://classes/components/movement_component.tscn" id="6_ful8p"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_aiftt"]
-radius = 8.0
+[sub_resource type="Resource" id="Resource_5ly6l"]
+script = ExtResource("2_5eapg")
+base_mass = 10.0
+metadata/_custom_type_script = "uid://ct72ih2uvfh4j"
+
+[sub_resource type="Resource" id="Resource_ful8p"]
+script = ExtResource("4_53alk")
+health = 0.0
+max_health = 0.0
+acid_resistance = 8.0
+metadata/_custom_type_script = "uid://p4jpyxyfekcs"
 
 [node name="Meatball" type="CharacterBody2D"]
-script = ExtResource("1_m6ds0")
+script = ExtResource("1_53alk")
+resource_file = SubResource("Resource_5ly6l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.03, 0.03)
 texture = ExtResource("2_4spwu")
 
-[node name="HealthComponent" parent="." instance=ExtResource("2_752qm")]
-
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_ds3vg")]
-shape = SubResource("CircleShape2D_aiftt")
+polygon = PackedVector2Array(0, -8, -8, 0, 0, 8, 8, 0)
 health_component = NodePath("../HealthComponent")
+
+[node name="MovementComponent" parent="." instance=ExtResource("6_ful8p")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_752qm")]
+resource_file = SubResource("Resource_ful8p")

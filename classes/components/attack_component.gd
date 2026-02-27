@@ -1,7 +1,6 @@
+#@icon()
 extends Area2D
-class_name ZoneComponent
-
-@export var stomach_organ : StomachOrgan
+class_name AttackComponent
 
 @export var new_attack : AttackData
 var detected_bodies : Array = []

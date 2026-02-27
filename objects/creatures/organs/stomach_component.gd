@@ -1,15 +1,10 @@
+#@icon()
 extends Node2D
 class_name StomachOrgan
 
-@export var storage_component : StorageComponent
+@export var resource_file : StomachResource
+@export var parent_node : Node2D
 
-@export_category("Data")
-@export var fullness : float = 0.0
-@export var max_fullness : float = 10.0
-@export var energy_efficiency : float = 0.25
-@export var acid_strength : float = 8.0
-
-@export_category("UI")
 @export var fullness_bar : TextureProgressBar
 @export var carb_bar : ProgressBar
 @export var protein_bar : ProgressBar
@@ -19,10 +14,24 @@ class_name StomachOrgan
 @export var mineral_bar : ProgressBar
 @export var fiber_bar : ProgressBar
 
-var stomach_contents : Array[Object] = []
+var fullness : float = 0.0
+var max_fullness : float = 10.0
+var energy_efficiency : float = 0.25
+var acid_strength : float = 8.0
+var stomach_contents : Array[ObjectResource] = []
 
 
-#func _ready() -> void:
+func _load_resource_file() -> void:
+	if fullness: fullness = resource_file.fullness
+	if max_fullness: max_fullness = resource_file.max_fullness
+	if energy_efficiency: energy_efficiency = resource_file.energy_efficiency
+	if acid_strength: acid_strength = resource_file.acid_strength
+	if stomach_contents: stomach_contents = resource_file.stomach_contents
+
+
+func _ready() -> void:
+	if resource_file:
+		_load_resource_file()
 	#update_bars()
 #
 #
@@ -33,8 +42,8 @@ var stomach_contents : Array[Object] = []
 	#update_bars()
 
 
-func swallow_object(new_object : ItemClass) -> void:
-	stomach_contents.append(new_object)
+#func swallow_object(new_object : ItemClass) -> void:
+	#stomach_contents.append(new_object)
 
 
 #func drain_tick(delta) -> void:

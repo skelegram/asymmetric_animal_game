@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CreatureResource" load_steps=3 format=3 uid="uid://df2a8nirsfqm6"]
+
+[ext_resource type="Resource" uid="uid://bfjkw73dovjw7" path="res://objects/creatures/data/kin/kin_nutrients.tres" id="2_do8po"]
+[ext_resource type="Script" uid="uid://cla0nhmyi3gj1" path="res://classes/resources/creature_resource.gd" id="4_10jts"]
+
+[resource]
+script = ExtResource("4_10jts")
+stored_nutrients = ExtResource("2_do8po")
+base_mass = 1.0
+metadata/_custom_type_script = "uid://cla0nhmyi3gj1"

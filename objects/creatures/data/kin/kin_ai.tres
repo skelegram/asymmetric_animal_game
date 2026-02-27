@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AIResource" load_steps=4 format=3 uid="uid://lnnubrb1b2ec"]
+
+[ext_resource type="Script" uid="uid://cla0nhmyi3gj1" path="res://classes/resources/creature_resource.gd" id="1_7itgi"]
+[ext_resource type="Script" uid="uid://h28wwak8280d" path="res://classes/resources/ai_resource.gd" id="2_y5yjo"]
+[ext_resource type="Script" uid="uid://ct72ih2uvfh4j" path="res://classes/resources/object_resource.gd" id="3_qy1ti"]
+
+[resource]
+script = ExtResource("2_y5yjo")
+max_pack_size = 1
+navigation_attempts = 5
+pack_members = Array[ExtResource("1_7itgi")]([])
+tracked_objects = Dictionary[ExtResource("3_qy1ti"), float]({})
+tracked_locations = Dictionary[Vector2, float]({})
+seed_val = 0.0
+awareness_influence = 0
+awareness = 0
+aggression_influence = 0
+aggression = 0
+metadata/_custom_type_script = "uid://h28wwak8280d"

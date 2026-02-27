@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StomachResource" load_steps=3 format=3 uid="uid://bqqp07rhp88jr"]
+
+[ext_resource type="Script" uid="uid://dreu8fd7oj2jv" path="res://classes/resources/stomach_resource.gd" id="1_42w3f"]
+[ext_resource type="Script" uid="uid://ct72ih2uvfh4j" path="res://classes/resources/object_resource.gd" id="2_thfld"]
+
+[resource]
+script = ExtResource("1_42w3f")
+fullness = 0.0
+max_fullness = 10.0
+energy_efficiency = 0.25
+acid_strength = 8.0
+stomach_contents = Array[ExtResource("2_thfld")]([])
+metadata/_custom_type_script = "uid://dreu8fd7oj2jv"

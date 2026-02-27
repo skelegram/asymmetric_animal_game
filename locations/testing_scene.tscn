@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=4 uid="uid://b17tui1t2a8lm"]
+[gd_scene load_steps=5 format=4 uid="uid://b17tui1t2a8lm"]
 
 [ext_resource type="Texture2D" uid="uid://bct5djh882m1w" path="res://textures/icon.svg" id="1_jh5vu"]
-[ext_resource type="PackedScene" uid="uid://cce4c4jxw1e6y" path="res://objects/items/meatball.tscn" id="3_6qqtn"]
 [ext_resource type="PackedScene" uid="uid://2e6h4nvsvb5m" path="res://objects/creatures/kin.tscn" id="4_6qqtn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7tgyr"]
@@ -25,27 +24,3 @@ tile_map_data = PackedByteArray("AAD8////AwAMAAMAAAD8/wAAAwAMAAMAAAD9////AwAMAAM
 tile_set = SubResource("TileSet_urjax")
 
 [node name="Kin" parent="." instance=ExtResource("4_6qqtn")]
-
-[node name="Object" parent="." instance=ExtResource("3_6qqtn")]
-position = Vector2(80, 0)
-
-[node name="Object2" parent="." instance=ExtResource("3_6qqtn")]
-position = Vector2(80, 80)
-
-[node name="Object3" parent="." instance=ExtResource("3_6qqtn")]
-position = Vector2(0, 80)
-
-[node name="Object4" parent="." instance=ExtResource("3_6qqtn")]
-position = Vector2(-80, 80)
-
-[node name="Object5" parent="." instance=ExtResource("3_6qqtn")]
-position = Vector2(-80, 0)
-
-[node name="Object6" parent="." instance=ExtResource("3_6qqtn")]
-position = Vector2(-80, -80)
-
-[node name="Object7" parent="." instance=ExtResource("3_6qqtn")]
-position = Vector2(0, -80)
-
-[node name="Object8" parent="." instance=ExtResource("3_6qqtn")]
-position = Vector2(80, -80)

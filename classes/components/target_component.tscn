@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://caotlh07n43q8"]
+
+[node name="TargetComponent" type="Node2D"]

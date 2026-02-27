@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MovementResource" load_steps=2 format=3 uid="uid://bhvqgxsmqiekj"]
+
+[ext_resource type="Script" uid="uid://cibkre5eu0xur" path="res://classes/resources/movement_resource.gd" id="1_bfu7f"]
+
+[resource]
+script = ExtResource("1_bfu7f")
+base_mass = 1.0
+move_speed = 700.0
+rotation_speed = 900.0
+metadata/_custom_type_script = "uid://cibkre5eu0xur"

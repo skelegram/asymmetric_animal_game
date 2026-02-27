@@ -1,14 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnf7chm2m2hxq"]
+[gd_scene load_steps=4 format=3 uid="uid://dnf7chm2m2hxq"]
 
+[ext_resource type="PackedScene" uid="uid://bhstce8s631es" path="res://classes/components/hitbox_component.tscn" id="1_bi82w"]
 [ext_resource type="Texture2D" uid="uid://bct5djh882m1w" path="res://textures/icon.svg" id="1_kneyr"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2li1r"]
-radius = 16.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_h0dja"]
+radius = 8.0
 
 [node name="TestDummy" type="CharacterBody2D"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_2li1r")
+[node name="HitboxComponent" parent="." instance=ExtResource("1_bi82w")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_h0dja")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
